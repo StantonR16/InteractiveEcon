@@ -7,6 +7,8 @@ void setup() {
   size(800, 800);
   //rectMode(CENTER);
   g_graph = new Graph();
+  g_graph.addSupply();
+  g_graph.addDemand();
 }
 
 
@@ -14,4 +16,5 @@ void setup() {
 void draw() {
   background(0);
   g_graph.draw();
+  debugCoordinates();
 }

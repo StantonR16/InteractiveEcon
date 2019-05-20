@@ -4,106 +4,74 @@ class Graph {
   private List<Curve> m_curves;
 
   private Point m_origin;
+  private Line m_x, m_y;
 
-  private boolean m_isBeingDragged;
-  
+
   private int m_size;
 
   public Graph() {
     m_curves = new ArrayList<Curve>();
     m_origin = new Point(300, 300);
     m_size = 200;
+    m_x = new Line(m_origin, m_size, 0, #FFFFFF);
+    m_y = new Line(m_origin, 0, -m_size, #FFFFFF);
+  }
+
+  public void addSupply() {
+    Line dest = new Line(m_origin, m_size, -m_size, #0000FF);
+    m_curves.add(new Curve("S", dest));
+  }
+
+  public void addDemand() {
+
+    Point transform = new Point(m_origin.x, m_origin.y - m_size);
+    Line dest = new Line(transform, m_size, m_size, #FF0000);
+
+    m_curves.add(new Curve("D", dest));
+  }
+
+  public void drawEquilibrium() {
   }
 
 
 
-  public boolean isBeingDragged() { 
-    return m_isBeingDragged;
-  }
 
-  public void drag() {
-    m_isBeingDragged = true;
-  }
 
-  public void drop() {
-    m_isBeingDragged = false;
-    m_origin = mouse();
-  }
-
-  public Point getOrigin() {
-    if (m_isBeingDragged) {
-      return mouse();
-    }
-    //return mouse();
-    return m_origin;
-  }
-
-  
 
   private void drawAxes() {
-    Point orig = getOrigin();
-    //todo
-    line(orig.x, orig.y, orig.x+m_size, orig.y); // x
-    line(orig.x, orig.y, orig.x, orig.y-m_size); // y
+    m_x.draw();
+    m_y.draw();
   }
 
-  boolean isHoveringX() {
-    Point src = mouse();
-    Point orig = getOrigin();
-    return isHovering_X(orig.x,orig.y,m_size,5);
+
+
+  public void drawVisualGuides(Curve c) {
+    // Precondition: c is selected
+
+    Point mouse = mouse();
+
+    createVisualGuide(new Point(m_origin.x, mouse.y), "P").draw();
+
+    createVisualGuide(new Point(mouse.x, m_origin.y), "Q").draw();
   }
 
-  
 
-  boolean bover;
-  boolean locked;
 
 
 
   public void draw() {
-    stroke(255);
+
     strokeWeight(5);
-
-    float bx = getOrigin().x;
-    float by=getOrigin().y;
-    float bs=0;
-    
-    // Test if the cursor is over the box 
-
-    if (isHoveringX()) {
-
-      bover = true;  
-
-      if (!locked) { 
-
-        stroke(255); 
-
-        fill(153);
-      }
-    } else {
-
-      stroke(153);
-
-      fill(153);
-
-      bover = false;
-    }
-
-
-
-    // Draw the box
-
-    //rect(bx, by, bs, bs);
-
-    println("Origin: "+getOrigin());
-    println(isHoveringX());
-
-
-
-    drawAxes();
 
     for (Curve c : m_curves) {
       c.draw();
+      printf("Curve %s is selected: %b", c.name(), c.line().isSelected());
+
+      if (c.line().isSelected()) {
+        drawVisualGuides(c);
+      }
     }
+
+    drawAxes();
   }
 }
