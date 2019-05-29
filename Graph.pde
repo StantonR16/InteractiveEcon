@@ -65,13 +65,16 @@ class Graph {
     
     m_curves.add(new Curve("S tax", dest));
   }
+  
+  
 
   public void addDemand() {
 
     Point transform = new Point(m_origin.x, m_origin.y - m_size);
     Line dest = new Line(transform, m_size, m_size, #FF0000);
-
-    m_curves.add(new Curve("D", dest));
+Curve c=new Curve("D", dest);
+//c.follow();
+    m_curves.add(c);
   }
   
   public void addTax() {
@@ -153,7 +156,7 @@ class Graph {
     Point cpy = getOriginOffset();
     fill(color(0xFF,0xF4,0x2C,0x7F));
     
-    triangle(400,200, 
+    triangle(m_size*2,m_size, 
             cpy.x, cpy.y + m_taxDelta,
             cpy.x, cpy.y);
             
@@ -164,7 +167,7 @@ class Graph {
     Point cpy = getOriginOffset();
     fill(color(0,0,0xFF,0x7F));
     // 1: origin;
-    
+    //printPoint(cpy.x, cpy.y + m_taxDelta);
     triangle(m_size2, m_size2, cpy.x, cpy.y + m_taxDelta, m_size2, cpy.y + m_taxDelta);
     fill(color(0xFF,0xFF,0xFF,0xFF));
   }
@@ -175,11 +178,19 @@ class Graph {
     
     
     fill(color(0xFF,0,0,0x7F));
-    printPoint(cpy.x, cpy.y);
     triangle(m_size2, m_size2-m_size, cpy.x, cpy.y, m_size2, cpy.y);
     fill(color(0xFF,0xFF,0xFF,0xFF));
   }
 
+  public void drawTaxRevenue() {
+    Point cpy = getOriginOffset();
+    
+    
+    fill(color(0x00,0xFF,0,0x7F));
+    rect(m_size2, cpy.y,cpy.x - 300, m_taxDelta);
+    
+    fill(color(0xFF,0xFF,0xFF,0xFF));
+  }
 
 
 
@@ -200,13 +211,12 @@ class Graph {
     
     drawEquilibrium();
     addTax();
-    
-    
     drawCS();
     drawPS();
     drawDWL();
+    drawTaxRevenue();
     drawAxes();
     
-    println("Tax delta: "+m_taxDelta);
+    //println("Tax delta: "+m_taxDelta);
   }
 }

@@ -1,7 +1,7 @@
 class Curve {
   private String m_name;
   private Line m_value;
-  private boolean m_nameOffset;
+  private boolean m_nameOffset ,m_follow;
 
   public Curve(String name, Line l) {
     this(name, l, false);
@@ -20,9 +20,17 @@ class Curve {
   public String name() { 
     return m_name;
   }
+  
+  public void follow() {
+    m_follow = true;
+  }
 
   public void draw() {
-    m_value.draw();
+    if (m_follow) {
+      m_value.drawTo(mouse());
+    }
+    else m_value.draw();
+    
     Point orig = m_value.getDestination();
 
     if (m_nameOffset) {

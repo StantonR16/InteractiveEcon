@@ -26,6 +26,11 @@ class Line {
     return m_delta;
   }
 
+  public void drawTo(Point dest) {
+    stroke(m_color);
+    line(m_orig.x, m_orig.y, dest.x, dest.y);
+  }
+  
   public boolean isSelected() {
     return linePoint(this, mouse());
   }
