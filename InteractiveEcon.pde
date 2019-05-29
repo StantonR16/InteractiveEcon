@@ -8,9 +8,16 @@ void setup() {
   //rectMode(CENTER);
   g_graph = new Graph();
   g_graph.addSupply();
+  g_graph.addSupplyTax();
   g_graph.addDemand();
 }
 
+void keyPressed() {
+  if (keyCode == LEFT)
+    g_graph.increaseTax();
+if (keyCode == RIGHT)
+    g_graph.decreaseTax();
+}
 
 
 void draw() {

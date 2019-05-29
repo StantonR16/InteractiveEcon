@@ -4,12 +4,24 @@ boolean hitScan(Point src, float x, float y, float size) {
 }
 
 Curve createVisualGuide(Point p, String name) {
-  Point mouse = mouse();
+  return createVisualGuide(p,name,mouse());
+}
 
+Curve createVisualGuide(Point p, String name, Point p2, color c) {
   Point target = new Point(p.x, p.y);
-  Line vg = asStandard(target, mouse, #808080);
+  Line vg = asStandard(target, p2, c);
 
   return new Curve(name, vg, true);
+}
+
+void printPoint(float x, float y) {
+  printf("x: %f, y: %f",x,y);
+}
+
+Curve createVisualGuide(Point p, String name, Point p2) {
+  return createVisualGuide(p,name,p2,#808080);
+
+  
 }
 
 

@@ -1,0 +1,5 @@
+class Shift {
+  public Shift() {
+  
+  }
+}

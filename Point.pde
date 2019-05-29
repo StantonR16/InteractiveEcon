@@ -5,6 +5,7 @@ class Point {
     this.x = x;
     this.y = y;
   }
+  public Point copy() { return new Point(x,y);}
   
   public Point inverse() {
     return new Point(y,x);
