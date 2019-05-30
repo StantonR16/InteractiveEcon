@@ -25,9 +25,9 @@ class Graph {
     m_curves.add(new Curve("S", dest));
   }
 
-  private int m_taxDelta;
+  private float m_taxDelta;
 
-  private int getTaxDelta() {
+  private float getTaxDelta() {
     //return m_size / 2;
     return m_taxDelta;
   }
@@ -44,14 +44,16 @@ class Graph {
     }
   }
 
+  private final float TAX_DELTA_CHANGE = 0.1f;
+  
   public void increaseTax() {
 
-    m_taxDelta++;
+    m_taxDelta+=TAX_DELTA_CHANGE;
     clampTax();
   }
 
   public void decreaseTax() {
-    m_taxDelta--;
+    m_taxDelta-=TAX_DELTA_CHANGE;
     clampTax();
   }
   
@@ -252,7 +254,7 @@ class Graph {
     addLabel(String.format("Consumer surplus: %.1f", surplus), CS_COLOR, OFFSET_MULTIPLIER * 1);
     addLabel(String.format("Producer surplus: %.1f", surplus), PS_COLOR, OFFSET_MULTIPLIER * 2);
     addLabel(String.format("Deadweight loss: %.1f", dwl), DWL_COLOR, OFFSET_MULTIPLIER * 3);
-    addLabel(String.format("Tax: %d", m_taxDelta), WHITE_COLOR, OFFSET_MULTIPLIER * 4);
+    addLabel(String.format("Tax: %f", m_taxDelta), WHITE_COLOR, OFFSET_MULTIPLIER * 4);
     addLabelAlt("Short-run", OFFSET_MULTIPLIER * 5);
     addLabelAlt("Unit elastic", OFFSET_MULTIPLIER * 6);
   }
