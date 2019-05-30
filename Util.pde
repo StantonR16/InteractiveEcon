@@ -25,6 +25,10 @@ Curve createVisualGuide(Point p, String name, Point p2, color c) {
   return new Curve(name, vg, true);
 }
 
+void printPoint(Point p) {
+  printPoint(p.x,p.y);
+}
+
 void printPoint(float x, float y) {
   printf("x: %f, y: %f",x,y);
 }
