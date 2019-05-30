@@ -254,7 +254,7 @@ class Graph {
     addLabel(String.format("Consumer surplus: %.1f", surplus), CS_COLOR, OFFSET_MULTIPLIER * 1);
     addLabel(String.format("Producer surplus: %.1f", surplus), PS_COLOR, OFFSET_MULTIPLIER * 2);
     addLabel(String.format("Deadweight loss: %.1f", dwl), DWL_COLOR, OFFSET_MULTIPLIER * 3);
-    addLabel(String.format("Tax: %f", m_taxDelta), WHITE_COLOR, OFFSET_MULTIPLIER * 4);
+    addLabel(String.format("Tax: %.1f", m_taxDelta), WHITE_COLOR, OFFSET_MULTIPLIER * 4);
     addLabelAlt("Short-run", OFFSET_MULTIPLIER * 5);
     addLabelAlt("Unit elastic", OFFSET_MULTIPLIER * 6);
   }
